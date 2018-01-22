@@ -1,0 +1,14 @@
+﻿@using App.Domain.Entites
+@model IEnumerable<Product>
+
+<h2>List</h2>
+<br>
+@foreach (var p in Model)
+{
+    <div class="item">
+        <h3>@p.Name</h3>
+        @p.Descr
+        <h4>@p.Price.ToString("c")</h4>
+    </div>
+}
+

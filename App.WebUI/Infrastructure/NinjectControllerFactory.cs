@@ -10,7 +10,7 @@ using Moq;
 using App.Domain.Entites;
 using App.Domain.Concrete;
 
-namespace App.WebUI.infrastructure
+namespace App.WebUI.Infrastructure
 {
     public class NinjectControllerFactory : DefaultControllerFactory
     {

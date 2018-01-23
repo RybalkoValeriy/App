@@ -1,14 +1,18 @@
-﻿@using App.Domain.Entites
-@model IEnumerable<Product>
+﻿@using App.WebUI.Models
+@model ProductView
 
-<h2>List</h2>
-<br>
-@foreach (var p in Model)
+<h2 class="h1">ListProduct</h2>
+@foreach (var p in Model.Products)
 {
-    <div class="item">
+    <div class="list-group-item">
         <h3>@p.Name</h3>
         @p.Descr
         <h4>@p.Price.ToString("c")</h4>
     </div>
 }
+    <nav class="Page ">
 
+    </nav>
+<ul class="pagination">
+    @Html.PageLink(Model.PagingInfo, x => Url.Action("List", new { page = x }))
+</ul>

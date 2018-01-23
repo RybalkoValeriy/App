@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using App.WebUI.infrastructure;
+using App.WebUI.Infrastructure;
 
 namespace App.WebUI
 {
@@ -19,6 +19,7 @@ namespace App.WebUI
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory());
+
         }
     }
 }

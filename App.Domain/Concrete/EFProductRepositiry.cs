@@ -18,11 +18,17 @@ namespace App.Domain.Concrete
             {
                 return context.Products;
             }
+        }
 
+        IQueryable<Product> IProductRepository.Products
+        {
+            get
+            {
+                return context.Products;
+            }
             set
             {
             }
         }
-
     }
 }

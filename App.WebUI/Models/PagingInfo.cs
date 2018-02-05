@@ -13,7 +13,7 @@ namespace App.WebUI.Models
 
         public int TotalPage
         {
-            get { return (int)Math.Ceiling((double)TotalItem / ItemsPrePage); }
+            get { return (int)Math.Ceiling((decimal)TotalItem / ItemsPrePage); }
         }
     }
 }

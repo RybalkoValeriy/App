@@ -132,14 +132,14 @@ namespace App.Domain.Concrete
                 new Product
                 {
                     ProductID=18,
-                    Name="Product1",
+                    Name="Product18",
                     Descr="Descr",
                     Price=800
                 },
                 new Product
                 {
                     ProductID=19,
-                    Name="Product1",
+                    Name="Product19",
                     Descr="Descr",
                     Price=800
                 },

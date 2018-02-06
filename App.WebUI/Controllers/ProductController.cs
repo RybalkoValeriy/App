@@ -33,6 +33,7 @@ namespace App.WebUI.Controllers
                     TotalItem = repository.Products.Count()
                 }
             };
+            var m = model.PagingInfo.TotalPage;
             return View(model);
         }
     }

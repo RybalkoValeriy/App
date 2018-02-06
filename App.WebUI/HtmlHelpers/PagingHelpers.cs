@@ -13,7 +13,7 @@ namespace App.WebUI.HtmlHelpers
         public static MvcHtmlString PageLink(this HtmlHelper html, PagingInfo pagingInfo, Func<int, string> pageUrl)
         {
             StringBuilder result = new StringBuilder();
-            for (int i = 1; i < pagingInfo.TotalPage; i++)
+            for (int i = 1; i <= pagingInfo.TotalPage; i++)
             {
                 TagBuilder li = new TagBuilder("li");
                 TagBuilder tag = new TagBuilder("a");

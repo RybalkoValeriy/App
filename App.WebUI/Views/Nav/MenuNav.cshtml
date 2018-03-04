@@ -1,0 +1,23 @@
+﻿@model IEnumerable<string>
+@Html.ActionLink("Home", "List", "Product")
+
+<div class="list-group" >
+    @foreach (var linkCategory in Model)
+    {
+        if (linkCategory != null)
+        {
+
+            @Html.RouteLink(linkCategory,
+                                         new
+                                         {
+                                             controller = "Product",
+                                             action = "List",
+                                             category = linkCategory,
+                                             page = 1
+                                         },
+                                         new { @class = ViewBag.SelectCategories == linkCategory ? "list-group-item active" : "list-group-item" })
+        }
+
+    }
+</div>
+

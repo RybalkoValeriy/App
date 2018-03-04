@@ -21,17 +21,20 @@ namespace App.WebUI.Controllers
         }
 
         // GET: Product
-        public ViewResult List(int page = 1)
+        public ViewResult List(string category, int page = 1)
         {
             ProductView model = new ProductView
             {
-                Products = repository.Products.OrderBy(x => x.ProductID).Skip((page - 1) * PageSize).Take(PageSize),
+                Products = repository.Products
+                    .Where(p => category == null || p.Category == category)
+                    .OrderBy(x => x.ProductID).Skip((page - 1) * PageSize).Take(PageSize),
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = page,
                     ItemsPrePage = PageSize,
                     TotalItem = repository.Products.Count()
-                }
+                },
+                CurrentCategory=category
             };
             var m = model.PagingInfo.TotalPage;
             return View(model);

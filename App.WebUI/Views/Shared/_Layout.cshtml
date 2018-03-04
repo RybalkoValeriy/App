@@ -18,20 +18,18 @@
     </div>
 
     <div class="container body-content">
-        <div class="container">
-            <ul class="nav nav-pills nav-stacked">
-                <li class="list-group-item">item1</li>
-                <li class="list-group-item">item2</li>
-                <li class="list-group-item">item3</li>
-                <li class="list-group-item">item4</li>
-            </ul>
+        <div class="row">
+            <div class="col-md-3" style="padding-top:30px">
+                @{Html.RenderAction("MenuNav", "Nav");}
+            </div>
+            <div class="col-md-8">
+                @RenderBody()
+            </div>
         </div>
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year – приложение ASP.NET</p>
-        </footer>
     </div>
+    <footer class="container">
+        <p>&copy; @DateTime.Now.Year – приложение ASP.NET</p>
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

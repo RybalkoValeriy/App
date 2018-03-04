@@ -5,14 +5,13 @@
 @foreach (var p in Model.Products)
 {
     <div class="list-group-item">
+        <span>@p.ProductID</span>
         <h3>@p.Name</h3>
         @p.Descr
         <h4>@p.Price.ToString("c")</h4>
     </div>
 }
-    <nav class="Page ">
 
-    </nav>
 <ul class="pagination">
-    @Html.PageLink(Model.PagingInfo, x => Url.Action("List", new { page = x }))
+    @Html.PageLink(Model.PagingInfo, x => Url.Action("List", new { page = x, category=Model.CurrentCategory }))
 </ul>

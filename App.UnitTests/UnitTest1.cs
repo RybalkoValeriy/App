@@ -104,5 +104,106 @@ namespace App.UnitTests
             Assert.AreEqual(resultControllerProduct.Length, 3);
             Assert.IsTrue(resultControllerProduct[0].Name == "P2" && resultControllerProduct[0].Category == "C2");
         }
+
+        [TestMethod]
+        public void Generate_Category_Specific_Product_Cpunt()
+        {
+            // Arrange
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            mock.Setup(m => m.Products)
+                .Returns(
+                new Product[]
+                {
+                    new Product{ProductID=1,Name="P1",Category="C1" },
+                    new Product{ProductID=2,Name="P2",Category="C2" },
+                    new Product{ProductID=3,Name="P3",Category="C3" },
+                    new Product{ProductID=4,Name="P4",Category="C1" },
+                    new Product{ProductID=5,Name="P5",Category="C2" },
+                    new Product{ProductID=6,Name="P6",Category="C3" },
+                    new Product{ProductID=7,Name="P7",Category="C1" },
+                    new Product{ProductID=8,Name="P8",Category="C2" },
+                    new Product{ProductID=9,Name="P9",Category="C2" }
+                }.AsQueryable()
+                );
+            ProductController product = new ProductController(mock.Object)
+            {
+                PageSize = 3
+            };
+            // Act
+            int resultC1 = ((ProductView)product.List("C1").Model).PagingInfo.TotalItem;
+            int resultC2 = ((ProductView)product.List("C2").Model).PagingInfo.TotalItem;
+            int resultC3 = ((ProductView)product.List("C3").Model).PagingInfo.TotalItem;
+            // Assert
+            Assert.AreEqual(resultC1, 3);
+            Assert.AreEqual(resultC2, 4);
+            Assert.AreEqual(resultC3, 2);
+        }
+
+        [TestMethod]
+        public void Can_Add_Cart_NewLines()
+        {
+            // Arrange
+            Product p1 = new Product { ProductID = 1, Name = "P1" };
+            Product p2 = new Product { ProductID = 2, Name = "P2" };
+            Cart cart = new Cart();
+            // Act
+            cart.AddItem(p1, 1);
+            cart.AddItem(p2, 1);
+            CartLine[] result = cart.Lines.ToArray();
+            // Assert
+            Assert.AreEqual(result.Length, 2);
+            Assert.AreEqual(result[0].Product, p1);
+            Assert.AreEqual(result[1].Product, p2);
+
+        }
+
+        [TestMethod]
+        public void Can_Add_Quantity_List()
+        {
+            // Arrange
+            Product p1 = new Product { ProductID = 1, Name = "P1" };
+            Product p2 = new Product { ProductID = 2, Name = "P2" };
+            Cart cart = new Cart();
+            // Act
+            cart.AddItem(p1, 1);
+            cart.AddItem(p2, 1);
+            cart.AddItem(p1, 10);
+            CartLine[] result = cart.Lines.OrderBy(c => c.Product.ProductID).ToArray();
+            // Assert
+            Assert.AreEqual(result.Length, 2);
+            Assert.AreEqual(result[0].Quantity, 11);
+            Assert.AreEqual(result[1].Quantity, 1);
+        }
+
+        [TestMethod]
+        public void Calculate_Cart_Total()
+        {
+            // Arrange
+            Product p1 = new Product { ProductID = 1, Name = "P1", Price = 10 };
+            Product p2 = new Product { ProductID = 2, Name = "P2", Price = 120 };
+            Cart cart = new Cart();
+            // Act 
+            cart.AddItem(p1, 1);
+            cart.AddItem(p2, 10);
+            cart.AddItem(p1, 6);
+            decimal result = cart.ComputeTotalValue();
+            // Assert
+            Assert.AreEqual(result, 1270);
+        }
+
+        [TestMethod]
+        public void Can_Calear_Contents()
+        {
+            // Arrange
+            Product p1 = new Product { ProductID = 1, Name = "P1", Price = 10 };
+            Product p2 = new Product { ProductID = 2, Name = "P2", Price = 120 };
+            Cart cart = new Cart();
+            // Act
+            cart.AddItem(p1, 10);
+            cart.AddItem(p2, 20);
+            cart.Clear();
+            // Assert
+            Assert.AreEqual(cart.Lines.Count(), 0);
+        }
     }
 }

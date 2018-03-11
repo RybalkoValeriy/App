@@ -4,14 +4,9 @@
 <h2 class="h1">ListProduct</h2>
 @foreach (var p in Model.Products)
 {
-    <div class="list-group-item">
-        <span>@p.ProductID</span>
-        <h3>@p.Name</h3>
-        @p.Descr
-        <h4>@p.Price.ToString("c")</h4>
-    </div>
+    Html.RenderPartial("_ProductSummary", p);
 }
 
 <ul class="pagination">
-    @Html.PageLink(Model.PagingInfo, x => Url.Action("List", new { page = x, category=Model.CurrentCategory }))
+    @Html.PageLink(Model.PagingInfo, x => Url.Action("List", new { page = x, category = Model.CurrentCategory }))
 </ul>

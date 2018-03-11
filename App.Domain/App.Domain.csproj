@@ -72,6 +72,7 @@
     <Compile Include="Concrete\CustomDatabaseIntilize.cs" />
     <Compile Include="Concrete\EFDataContext.cs" />
     <Compile Include="Concrete\EFProductRepositiry.cs" />
+    <Compile Include="Entites\Cart.cs" />
     <Compile Include="Entites\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

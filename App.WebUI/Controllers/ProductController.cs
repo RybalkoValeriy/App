@@ -12,7 +12,7 @@ namespace App.WebUI.Controllers
 {
     public class ProductController : Controller
     {
-        public int PageSize = 5;
+        public int PageSize = 3;
         private IProductRepository repository;
 
         public ProductController(IProductRepository productRepository)
@@ -30,11 +30,16 @@ namespace App.WebUI.Controllers
                     .OrderBy(x => x.ProductID).Skip((page - 1) * PageSize).Take(PageSize),
                 PagingInfo = new PagingInfo
                 {
+                    // Текущая страница
                     CurrentPage = page,
+                    // кол-во товаров на страницу
                     ItemsPrePage = PageSize,
-                    TotalItem = repository.Products.Count()
+                    // всего товаров
+                    TotalItem = category == null ? 
+                    repository.Products.Count(): 
+                    repository.Products.Where(x => x.Category == category).Count()
                 },
-                CurrentCategory=category
+                CurrentCategory = category
             };
             var m = model.PagingInfo.TotalPage;
             return View(model);

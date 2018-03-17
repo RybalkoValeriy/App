@@ -1,0 +1,41 @@
+﻿@model App.Domain.Entites.ShippingDetails
+
+<h2>Checkout</h2>
+Please enter your details, and we ll ship your goods right away!
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <h3>Ship to</h3>
+        <div>Name: @Html.EditorFor(x => x.Name)</div>
+        <h3>Address</h3>
+        <div class="container">
+            Line 1: @Html.EditorFor(x => x.Line1)
+        </div>
+        <div class="container">
+            Line 2: @Html.EditorFor(x => x.Line2)
+        </div>
+        <div class="container">
+            Line 3: @Html.EditorFor(x => x.Line3)
+        </div>
+        <div class="container">
+            City: @Html.EditorFor(x => x.City)
+        </div>
+        <div class="container">
+            State: @Html.EditorFor(x => x.State)
+        </div>
+        <div class="container">
+            Zip: @Html.EditorFor(x => x.Zip)
+        </div>
+        <div class="container">
+            Country: @Html.EditorFor(x => x.Country)
+        </div>
+        <h3>Options</h3>
+        <label>
+            @Html.EditorFor(x => x.GiftWrap)
+            Gift wrap these items
+        </label>
+        <p>
+            <input type="submit" name="name" value="Complete order" />
+        </p>
+    </div>
+}

@@ -205,5 +205,6 @@ namespace App.UnitTests
             // Assert
             Assert.AreEqual(cart.Lines.Count(), 0);
         }
+
     }
 }

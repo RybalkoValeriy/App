@@ -14,7 +14,11 @@
             <nav class="navbar-brand">
                 OnlineShop
             </nav>
+            <ul class="nav navbar-right">
+                @{Html.RenderAction("Summary", "Cart");}
+            </ul>
         </div>
+
     </div>
 
     <div class="container body-content">

@@ -56,6 +56,8 @@ namespace App.UnitTests
             Assert.AreEqual(result.RouteValues["action"], "Index");
             Assert.AreEqual(result.RouteValues["returnUrl"], "myUrl");
         }
+
+        // Метод который гарантирует что мы не сможем сделать заказ с пустой корзиной
         [TestMethod]
         public void Cannot_Checkout_Empty_Cart()
         {
@@ -73,5 +75,39 @@ namespace App.UnitTests
             Assert.AreEqual(false, result.ViewData.ModelState.IsValid);
         }
 
+        // Ошибка валидации данных при оформлении заказа
+        [TestMethod]
+        public void Cannot_Checkout_Invalid_ShippingDetails()
+        {
+            // Arrange
+            Mock<IOrderProcessor> mock = new Mock<IOrderProcessor>();
+            Cart cart = new Cart();
+            cart.AddItem(new Product() { ProductID = 1 }, 1);
+            CartController controller = new CartController(null, mock.Object);
+            controller.ModelState.AddModelError("error", "error");
+            // Act
+            ViewResult viewResult = controller.Checkout(cart, new ShippingDetails());
+            // Assert
+            mock.Verify(m => m.ProcessOrder(It.IsAny<Cart>(), It.IsAny<ShippingDetails>()), Times.Never());
+            Assert.AreEqual("", viewResult.ViewName);
+            Assert.AreEqual(false, viewResult.ViewData.ModelState.IsValid);
+        }
+
+        // Удачный заказ
+        [TestMethod]
+        public void Can_Checkout_And_Submit_Order()
+        {
+            // Arrange
+            Mock<IOrderProcessor> mock = new Mock<IOrderProcessor>();
+            Cart cart = new Cart();
+            cart.AddItem(new Product() { ProductID = 1 }, 1);
+            CartController controller = new CartController(null, mock.Object);
+            // Act
+            ViewResult viewResult = controller.Checkout(cart, new ShippingDetails());
+            // Assert
+            mock.Verify(m => m.ProcessOrder(It.IsAny<Cart>(), It.IsAny<ShippingDetails>()), Times.Once());
+            Assert.AreEqual("Compleated", viewResult.ViewName);
+            Assert.AreEqual(true, viewResult.ViewData.ModelState.IsValid);
+        }
     }
 }

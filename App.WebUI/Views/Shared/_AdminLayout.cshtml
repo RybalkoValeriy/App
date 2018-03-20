@@ -1,0 +1,17 @@
+﻿!<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    <footer class="container" style="background-color:rgba(75, 86, 128, 0.90)"></footer>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

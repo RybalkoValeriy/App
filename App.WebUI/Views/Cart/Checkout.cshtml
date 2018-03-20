@@ -1,9 +1,10 @@
 ﻿@model App.Domain.Entites.ShippingDetails
 
-<h2>Checkout</h2>
+<h2>Check out</h2>
 Please enter your details, and we ll ship your goods right away!
 @using (Html.BeginForm())
 {
+    @Html.ValidationSummary()
     <div class="form-group">
         <h3>Ship to</h3>
         <div>Name: @Html.EditorFor(x => x.Name)</div>
